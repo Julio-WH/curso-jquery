@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/e60b11453e.js" crossorigin="anonymous"></script>
+    <title>Curso Jquery</title>
+</head>
+<body>
+    <style type="text/css">
+        .ocultar{
+            display: none;
+        }
+        .cubo{
+            position: absolute;
+            background-color: black;
+            width: 50px;
+            height: 50px;
+            margin-top: 5%;
+        }
+    </style>
+    <h1 class="saludo">Curso de Jquery</h1>
+    <h2  id="saludo2"> Holaaaa mundo</h2>
+    <div>
+        <h3 id="prueba" > soy un un h3</h3>
+        <h3 id="prueba2">soy un h3 x2</h3>
+    </div>
+
+    <img id="logo" src="./descarga.png" alt="logo_wisphub"><br>
+    <img id="logo2"src="./descarga2.jpg" alt="logo-alom">
+
+    <button id="btn1">Mostrar</button>
+    <button id="btn2">Ocultar</button>
+
+    <hr>
+    <input type="text" id="input">
+    <label for="">Numero de Preciones</label>
+    <span>0</span>
+    <center><h1>
+        <i class="fa fa-volume-up" id="icon"></i>
+        <i class="fa-regular fa-circle-play" id="icon2"></i>
+        <i class="fa-regular fa-circle-pause"></i>
+    </h1></center>
+    <hr>
+    <ul id="colors">
+        <li>Naranja</li>
+        <li>Morado</li>
+        <li>Blanco</li>
+    </ul>
+    <hr>
+    <center>
+    <button id="left" class="fa fa-backward"></button>
+    <button id="right" class="fa fa-forward"></button>
+    <button id="up" class="fa fa-caret-up"></button>
+    <button id="down" class="fa fa-caret-down"></button>
+    <div class="cubo">
+        
+    </div>
+</center>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  //  $(function(){
+     //   alert("Hola")
+   // });
+
+
+  // $().ready(function(){
+   // alert("Segunda Forma")
+   // });
+
+  // $(document).ready(function(){
+      // alert("tercera forma")
+  // })
+
+  //$('h1').ready(function(){
+    //  alert("Cuarta Forma")
+  //})
+
+  //Manejo de Errores
+
+        //$.when($.ready, $.getScript("index.js")).then(function(){
+        // console.log("Correcto")
+        // }).catch(function(){
+        //  console.log("Error")
+        // })
+//Getter y Setters
+    $(function(){
+        var s = $('h1').attr('class' , 'hola'); //muestra la clase y lo cambia por hola
+        var s2 = $('h2').attr('id','modificado')
+
+        //Metodo CSS
+        $('#modificado').css({
+            'background-color':'blue',
+            'text-align':'center',
+        });
+        //Clases CSS hasClass y removeClass
+        if($('#modificado').hasClass('hola')){//El metodo hasClass nos devuelve un bool
+            alert('Si tiene la clase hola');
+            $('#modificado').removeClass('hola')
+        }
+        else{
+            alert('no tiene la clase hola')
+            $('div').addClass('hola')
+        }
+
+        //Show y Hide
+        if($('#prueba').hasClass('ocultar')){
+            $('#prueba').show(3000);
+        }
+        else{
+            $('#prueba2').hide(3000);
+        }
+
+        //Iterar Elementos
+        var num = [1,2,3,4,5,6,7,8,9];
+        //"Manera 1"
+        $.each(num,function(i,value){
+            // parametros//
+            //i = la pocision por la cual va recorrer
+            // value = el valor que va tener
+
+            console.log(i + ":"+value);
+        });
+
+        //"Manera2"
+        for(var i=0;i<num.length; i++){
+            console.log(num[i])
+        }
+
+        //Manera 3
+        console.log("---------Manera 3------------")
+        //sirve para acceder a obj
+        for(let numero of num){
+            console.log(num)
+        }
+
+        //Metodo Attr
+        $('#logo').click(function(){
+            $('#logo').attr('width',100);
+            //primer parametro es el atribudo
+            //segundo parametro es el elemento
+        });
+
+        //Dimensiones
+        $('#logo2').click(function(){
+            $('#logo2').width(100).height(100);//hace lo mismo que el attr
+            var w = $('#logo2').width();
+            console.log('tamaño de la img es:'+ w)
+            
+        });
+
+        //Efectos
+        $('#btn1').click(function(){
+            $('#logo').slideDown(3000);
+            //$('#logo').fadeIn(3000);
+            //$('#logo').animate({
+              //  height:"200px"
+           // },3000);
+        });
+        $('#btn2').click(function(){
+            $('#logo').slideUp(2000);
+        })
+            //$('#logo').fadeOut(3000);
+           // $('#logo').animate({
+               // width:"200px"
+           // });
+       //},3000);
+
+        //Eventos de teclado
+        $('#input').keydown(function(){
+            $('#input').css({"background-color":"green"})
+        });
+        var i=0;
+        $('#input').keypress(function(){
+            $('span').text(i += 1)
+        });
+        $('#input').keyup(function(){
+            $('#input').css({"background-color":"white"})
+        });
+
+        //eventos de mouse
+        $('#icon').mousedown(function(){
+            $('#icon').addClass('fa-volume-off').removeClass('fa-volume-up');
+
+        });
+        $('#icon').mouseup(function(){
+            $('#icon').addClass('fa-volume-up').removeClass('fa-volume-off');
+            
+        });
+  
+        //Metodo Data
+        console.log('-----Meotodo Data------')
+        $('#colors li').each(function(index,value){
+            v=$('#colors').data('nombre',value);
+            console.log($('#colors').data('nombre'))
+        });
+
+        //Animaciones
+        $('body').keyup(function(){
+            if(event.keyCode==37){
+                $('.cubo').animate({ 'left':'-=50px'},'slow');
+                console.log('left');
+            }else if(event.keyCode ==39){
+                $('.cubo').animate({ 'left':'+=50px'},'fast');
+                console.log('right');
+            }else if(event.keyCode ==38 ) {
+                $('.cubo').animate({ 'top':'-=50px'},'');
+                console.log('up');
+            }else if (event.keyCode==40){
+                $('.cubo').animate({ 'top':'+=50px'});
+                console.log('down');
+            }
+        });
+      //  $('#left').click(function(){
+       //     $('.cubo').animate({ 'left':'-=50px'})
+        //    console.log('left')
+        //});
+
+        //$('#right').click(function(){
+          //  $('.cubo').animate({ 'left':'+=50px'})
+            //console.log('right')
+        //});
+        $('#up').click(function(){
+            $('.cubo').animate({ 'top':'-=50px'})
+            console.log('up')
+        });
+        $('#down').click(function(){
+            $('.cubo').animate({ 'top':'+=50px'})
+            console.log('down')
+        });
+
+        //Eventos del scroll
+        $(window).scroll(function(){
+            if($(this).scrollTop() > 100){
+                console.log("Hola scroll")
+            }
+        });
+
+
+
+
+        
+
+
+
+
+
+
+
+    });
+
+
+</script>
+</html>
